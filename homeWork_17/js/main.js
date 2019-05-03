@@ -43,9 +43,6 @@ let getNewArrayAfterMap = newArray.map (item => {
 let getNewArrayAfterFilter = getNewArrayAfterMap.filter(item => 
    item.isVisible === true)
 
-//Закончил на показе коллекции на странице 
-//https://coursehunter-club.net/t/jsexpert-ponyatnyj-javascript-middle-part-2/810
-
 //Вывод на экран элементов массива. Создание элементом с помощью шаблонных строк.
 const createElement = array => { array.forEach(element => {
       result.insertAdjacentHTML('beforeend',  
@@ -67,3 +64,6 @@ function transform() {
 
 //Обработчик клика.
 btn.addEventListener("click", transform);
+
+//Закончил первое задание по галерее на странице
+//https://coursehunter-club.net/t/jsexpert-ponyatnyj-javascript-middle-part-2/810
