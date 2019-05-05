@@ -1,5 +1,7 @@
-var btn = document.getElementById("play");
+let btn = document.getElementById('play');
 let result = document.querySelector("#result")
+let sortABC = document.querySelector('#sortABC')
+let sortNewToOld = document.querySelector('#sortNewToOld')
 
 
 
@@ -21,11 +23,11 @@ data.forEach(item => {
 //Делаем удобочитаемую дату.
 const newDate = date => {
    var tmpDate = new Date(date);
-    return tmpDate.getFullYear() + "/" +
-           (tmpDate.getMonth() + 1) + "/" +
-           tmpDate.getDate() + " " +
-           tmpDate.getHours() + ":" +
-           tmpDate.getMinutes();
+   return tmpDate.getDate() + "/" +
+         (tmpDate.getMonth() + 1) + "/" +
+         tmpDate.getFullYear() + " " +
+         tmpDate.getHours() + ":" +
+         tmpDate.getMinutes();
 }
 
 //Корректируем вывод элементов.
@@ -50,6 +52,7 @@ const createElement = array => { array.forEach(element => {
             <img src = '${element.url}'></img>
             <h3>${element.name}</h3>
             <p>${element.description}</p>
+            <p>${element.date}</p>
          </div>`
       )
    });
@@ -58,12 +61,41 @@ const createElement = array => { array.forEach(element => {
 //Функция кнопки. Создаю элементы, потом убираю обработчик, затем блокирую кнопку.
 function transform() {
    createElement(getNewArrayAfterFilter)
-   btn.removeEventListener("click", transform);
+   sortAtoZ(getNewArrayAfterFilter)
+   btn.removeEventListener("click", transform)
    btn.classList.add('disabled')
 }
+//Функция сортировки по алфавиту.
+const sortAtoZ = array => { 
+   let byName = array.slice(0)
+   byName.sort(function(a,b) {
+      let x = a.name.toLowerCase()
+      let y = b.name.toLowerCase()
+      return x < y ? -1 : x > y ? 1 : 0
+   })
+   result.innerHTML = ''
+   createElement(byName)
+}
+const sortFunc = () => {sortAtoZ(getNewArrayAfterFilter)}
+
+//Функция сортировки по дате от нового к старому.
+const sortNToO = array => {
+   let byDate = array.slice(0)
+   byDate.sort(function(a,b) {
+      let x = a.date
+      let y = b.date
+      return x < y ? 1 : x > y ? -1 : 0
+   })
+   result.innerHTML = ''
+   createElement(byDate)
+}
+
+const sortNewToOldFunc = () => {sortNToO(getNewArrayAfterFilter)}
 
 //Обработчик клика.
-btn.addEventListener("click", transform);
-
-//Закончил первое задание по галерее на странице
+btn.addEventListener('click', transform)
+sortABC.addEventListener('click', sortFunc)
+sortNewToOld.addEventListener('click', sortNewToOldFunc)
+console.log(getNewArrayAfterFilter)
+//Закончил сортировку галереи
 //https://coursehunter-club.net/t/jsexpert-ponyatnyj-javascript-middle-part-2/810
