@@ -1,15 +1,15 @@
 let btn = document.getElementById('play');
-let result = document.querySelector("#result")
-let sortABC = document.querySelector('#sortABC')
-let sortNewToOld = document.querySelector('#sortNewToOld')
+let result = document.querySelector("#result");
+let sortABC = document.querySelector('#sortABC');
+let sortNewToOld = document.querySelector('#sortNewToOld');
 
 
 
 //Убираем элемент из массива.
-data.splice(5,1)
+data.splice(5,1);
 
 //Делаю новый массив из старого с отсутствием поля id
-let newArray = []
+let newArray = [];
 data.forEach(item => {
    newArray.push ({
       name : item.name,
@@ -17,8 +17,8 @@ data.forEach(item => {
       params : item.params,
       description : item.description,
       date : item.date,
-   })
-})
+   });
+});
 
 //Делаем удобочитаемую дату.
 const newDate = date => {
@@ -28,7 +28,7 @@ const newDate = date => {
          tmpDate.getFullYear() + " " +
          tmpDate.getHours() + ":" +
          tmpDate.getMinutes();
-}
+};
 
 //Корректируем вывод элементов.
 let getNewArrayAfterMap = newArray.map (item => {
@@ -38,12 +38,12 @@ let getNewArrayAfterMap = newArray.map (item => {
          date: newDate(item.date),
          params: `${item.params.status} => ${item.params.progress}`,
          isVisible: item.params.status,
-         }
-})
+         };
+});
 
 //Фильтруем массив по значению статуса
 let getNewArrayAfterFilter = getNewArrayAfterMap.filter(item => 
-   item.isVisible === true)
+   item.isVisible === true);
 
 //Вывод на экран элементов массива. Создание элементом с помощью шаблонных строк.
 const createElement = array => { array.forEach(element => {
@@ -54,48 +54,48 @@ const createElement = array => { array.forEach(element => {
             <p>${element.description}</p>
             <p>${element.date}</p>
          </div>`
-      )
+      );
    });
-}
+};
 
 //Функция кнопки. Создаю элементы, потом убираю обработчик, затем блокирую кнопку.
 function transform() {
-   createElement(getNewArrayAfterFilter)
-   sortAtoZ(getNewArrayAfterFilter)
-   btn.removeEventListener("click", transform)
-   btn.classList.add('disabled')
+   createElement(getNewArrayAfterFilter);
+   sortAtoZ(getNewArrayAfterFilter);
+   btn.removeEventListener("click", transform);
+   btn.classList.add('disabled');
 }
 //Функция сортировки по алфавиту.
 const sortAtoZ = array => { 
-   let byName = array.slice(0)
+   let byName = array.slice(0);
    byName.sort(function(a,b) {
-      let x = a.name.toLowerCase()
-      let y = b.name.toLowerCase()
-      return x < y ? -1 : x > y ? 1 : 0
-   })
-   result.innerHTML = ''
-   createElement(byName)
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+      return x < y ? -1 : x > y ? 1 : 0;
+   });
+   result.innerHTML = '';
+   createElement(byName);
 }
-const sortFunc = () => {sortAtoZ(getNewArrayAfterFilter)}
+const sortFunc = () => {sortAtoZ(getNewArrayAfterFilter);};
 
 //Функция сортировки по дате от нового к старому.
 const sortNToO = array => {
-   let byDate = array.slice(0)
+   let byDate = array.slice(0);
    byDate.sort(function(a,b) {
-      let x = a.date
-      let y = b.date
-      return x < y ? 1 : x > y ? -1 : 0
+      let x = a.date;
+      let y = b.date;
+      return x < y ? 1 : x > y ? -1 : 0;
    })
-   result.innerHTML = ''
-   createElement(byDate)
+   result.innerHTML = '';
+   createElement(byDate);
 }
 
-const sortNewToOldFunc = () => {sortNToO(getNewArrayAfterFilter)}
+const sortNewToOldFunc = () => {sortNToO(getNewArrayAfterFilter);};
 
 //Обработчик клика.
-btn.addEventListener('click', transform)
-sortABC.addEventListener('click', sortFunc)
-sortNewToOld.addEventListener('click', sortNewToOldFunc)
-console.log(getNewArrayAfterFilter)
+btn.addEventListener('click', transform);
+sortABC.addEventListener('click', sortFunc);;
+sortNewToOld.addEventListener('click', sortNewToOldFunc);
+console.log(getNewArrayAfterFilter);
 //Закончил сортировку галереи
 //https://coursehunter-club.net/t/jsexpert-ponyatnyj-javascript-middle-part-2/810
