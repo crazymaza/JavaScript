@@ -15,5 +15,8 @@ let appData = {
    savings: false,
 };
 
+appData.expenses.task = task;
+appData.expenses.neededMoney = neededMoney;
+
 budget = (money - appData.expenses.task) / 30;
 alert("Ваш бюджет на день " + budget.toFixed(2));
