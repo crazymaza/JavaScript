@@ -17,6 +17,7 @@
 */
 
 let start = document.querySelector('#start');
+let resultTableValue = document.querySelectorAll('.result-table div:nth-child(2n)');
 let budgetValue = document.querySelectorAll('.budget-value');
 let optionalValue = document.querySelectorAll('.optionalexpenses-value');
 let incomeValue = document.querySelectorAll('.income-value');
