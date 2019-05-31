@@ -13,15 +13,27 @@
 */
 
 let $ = document;
-let menu = $.querySelectorAll('.menu-item');
-console.log(menu);
-let body = $.querySelector('body');
-body.style.backgroundImage = "url('../img/apple_true.jpg')";
-menu.forEach(function(item, i) {
-    let a;
-    item.style.backgroundColor = 'blue';
-    if (i === 2) {
-          a = item.remove();
-    }
-    console.log(a);
-});
+let menuItem = $.querySelectorAll('.menu-item');
+let menu = $.querySelector('.menu');
+let reklama = $.querySelector('.adv');
+let title = $.querySelector('#title');
+let promptText = $.querySelector('#prompt');
+
+title.textContent = 'Мы продаем только подлинную технику Apple';
+
+reklama.remove();
+
+menu.insertBefore(menuItem[2], menuItem[1]);
+
+document.body.style.backgroundImage = "url('img/apple_true.jpg')";
+
+let fiveElement = $.createElement('li');
+fiveElement.classList.add('menu-item');
+fiveElement.textContent = 'Пятый элемент';
+menu.appendChild(fiveElement);
+
+function aaaa() {
+    promptText.textContent = prompt('Как вы относитесь к технике Apple?')
+}
+    
+setTimeout(aaaa, 3000);
