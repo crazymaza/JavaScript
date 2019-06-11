@@ -126,8 +126,6 @@ savings.addEventListener('click', function () {
         label[1].style.visibility = 'hidden';
     } else {
         appData.savings = true;
-        sum.style.opacity = 1;
-        percent.style.opacity = 1;
         sum.style.visibility = 'visible';
         percent.style.visibility = 'visible';
         label[0].style.visibility = 'visible';
