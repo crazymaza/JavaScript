@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     //Оживляем таймер
-    let deadline = '2019-06-23';
+    let deadline = '2019-06-14';
 
     //Получаем секунды, минуты, часы до даты окончания таймера.
     function getCurrectTime(endTime) {
@@ -45,10 +45,10 @@ window.addEventListener('DOMContentLoaded', function () {
             seconds = Math.floor((timeToD / 1000) % 60);
 
         return {
-            'total' : timeToD,
-            'hours' : hours,
-            'minutes' : minutes,
-            'seconds' : seconds,
+            'total': timeToD,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds,
         };
     }
 
@@ -62,12 +62,25 @@ window.addEventListener('DOMContentLoaded', function () {
 
         function refreshTimer() {
             let t = getCurrectTime(endTime);
+
             hours.textContent = t.hours;
             minutes.textContent = t.minutes;
             seconds.textContent = t.seconds;
+            if (t.hours < 10) {
+                hours.textContent = '0' + t.hours;
+            } 
+             if (t.minutes < 10) {
+                minutes.textContent = '0' + t.minutes;
+            } 
+            if (t.seconds < 10) {
+                seconds.textContent = '0' + t.seconds;
+            } 
 
-            if(t.total <= 0) {
+            if (t.total <= 0) {
                 clearInterval(timerInterval);
+                hours.textContent = '00';
+                minutes.textContent = '00';
+                seconds.textContent = '00';
             }
         }
     }
