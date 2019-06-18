@@ -1,50 +1,107 @@
-let btn = document.getElementById("play");
-let newArr = []
-
-//Удаляем шестой элемент из массива
-const spliseFunc = () => {
-   data.splice(6, 1)
-}
-
-//Используйте функцию forEach.
-// Внутри цикла создайте новый массив объектов.
-// В процессе создания нового массива объектов, избавьтесь от ключа id.
-// То есть в вашем новом массиве не должно быть id в каждом конкретном объекте.
-const createNewArrWithoutId = () => {
-   spliseFunc()
-   data.forEach(function(item) {
-      newArr.push({
-         url: item.url,
-	      name: item.name,
-	      params: item.params
-      })
-   })
-   return newArr
-}
-
-//По новому массиву объектов, полученному с помощью функции forEach пройдитесь методом map()
-// На каждой итерации цикла мы получаем один объект из массива объектов. 
-// Берем этот объект и преобразоваем его поля по следующим правилам.
-// Вам пригодится документация по дате и по строкам.
-// Для поля Name: с помощью функций работы со стрингами делаете первую букву большой, 
-// остальные маленькие (ДЖИП -> Джип)
-// Для поля url: добавить перед ним «http://»
-// Для поля Description: с помощью функций работы со стрингами делаете обрезание до 15 символов.
-//  После добавляем многоточие (…) Остальное отбрасываете.
-// Для поля date: создать объект даты из заданных миллисекунд и потом отобразить в виде «2015/07/02 14:15»
-createNewArrWithoutId(data)
-let remakeNewArr = newArr.map(item => {
-      return {
-            name: `${item.name.charAt(0)}${item.name.slice(1).toLowerCase()}`,
-            url: `http://${item.url}`
-         }
-      })
+let btn = document.getElementById('play');
+let result = document.querySelector("#result");
+let sortABC = document.querySelector('#sortABC');
+let sortNewToOld = document.querySelector('#sortNewToOld');
 
 
+
+//Убираем элемент из массива.
+data.splice(5, 1);
+
+//Делаю новый массив из старого с отсутствием поля id
+let newArray = [];
+data.forEach(item => {
+   newArray.push({
+      name: item.name,
+      url: item.url,
+      params: item.params,
+      description: item.description,
+      date: item.date,
+   });
+});
+
+//Делаем удобочитаемую дату.
+const newDate = date => {
+   var tmpDate = new Date(date);
+   return tmpDate.getDate() + "/" +
+      (tmpDate.getMonth() + 1) + "/" +
+      tmpDate.getFullYear() + " " +
+      tmpDate.getHours() + ":" +
+      tmpDate.getMinutes();
+};
+
+//Корректируем вывод элементов.
+let getNewArrayAfterMap = newArray.map(item => {
+   return {
+      url: `http://${item.url}`,
+      name: `${item.name.charAt(0)}${item.name.slice(1).toLowerCase()}`,
+      description: `${item.description.slice(0,15)}...`,
+      date: newDate(item.date),
+      params: `${item.params.status} => ${item.params.progress}`,
+      isVisible: item.params.status,
+   };
+});
+
+//Фильтруем массив по значению статуса
+let getNewArrayAfterFilter = getNewArrayAfterMap.filter(item =>
+   item.isVisible === true);
+
+//Вывод на экран элементов массива. Создание элементом с помощью шаблонных строк.
+const createElement = array => {
+   array.forEach(element => {
+      result.insertAdjacentHTML('beforeend',
+         `<div class = 'wrapper col-lg-4'>
+            <img src = '${element.url}'></img>
+            <h3>${element.name}</h3>
+            <p>${element.description}</p>
+            <p>${element.date}</p>
+         </div>`
+      );
+   });
+};
+
+//Функция кнопки. Создаю элементы, потом убираю обработчик, затем блокирую кнопку.
 function transform() {
-   console.log(remakeNewArr)
+   createElement(getNewArrayAfterFilter);
+   sortAtoZ(getNewArrayAfterFilter);
+   btn.removeEventListener("click", transform);
+   btn.classList.add('disabled');
 }
+//Функция сортировки по алфавиту.
+const sortAtoZ = array => {
+   let byName = array.slice(0);
+   byName.sort(function (a, b) {
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+      return x < y ? -1 : x > y ? 1 : 0;
+   });
+   result.innerHTML = '';
+   createElement(byName);
+};
+const sortFunc = () => {
+   sortAtoZ(getNewArrayAfterFilter);
+};
 
+//Функция сортировки по дате от нового к старому.
+const sortNToO = array => {
+   let byDate = array.slice(0);
+   byDate.sort(function (a, b) {
+      let x = a.date;
+      let y = b.date;
+      return x < y ? 1 : x > y ? -1 : 0;
+   });
+   result.innerHTML = '';
+   createElement(byDate);
+};
 
+const sortNewToOldFunc = () => {
+   sortNToO(getNewArrayAfterFilter);
+};
 
-btn.addEventListener("click", transform);
+//Обработчик клика.
+btn.addEventListener('click', transform);
+sortABC.addEventListener('click', sortFunc);
+sortNewToOld.addEventListener('click', sortNewToOldFunc);
+console.log(getNewArrayAfterFilter);
+//Закончил сортировку галереи
+//https://coursehunter-club.net/t/jsexpert-ponyatnyj-javascript-middle-part-2/810
