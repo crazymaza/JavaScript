@@ -105,19 +105,17 @@ window.addEventListener('DOMContentLoaded', function () {
         moreButton.classList.remove('more-splash');
         document.body.style.overflow = '';
     });
-
+    //Делегируем событие на обёртку
     tabWrapper.addEventListener('click', function(e) {
         let target = e.target;
         if(target && target.classList.contains('description-btn')) {
-            for (let i = 0; i < target.length; i++) {
+            for (let i = 0; i < tabMoreButton.length; i++) {
                 if(target === tabMoreButton[i]) {
                     modalOverlay.style.display = 'block';
                     tabMoreButton[i].classList.add('more-splash');
                     document.body.style.overflow = 'hidden';
-                    console.log('dfsfsdf');
                 }
             }
         }
     });
-
 });
