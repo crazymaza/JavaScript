@@ -1,37 +1,74 @@
+/* Класс для исчезающего элемента */
+.noVision {
+    opacity: 0;
+}
+/* Класс обёртка для продуктов */
 .wrapper {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background-color: #e2cf9a;
     margin-bottom: 10px;
+    transition: .5s;
 }
+ /* Блоки продуктов делаем в линию */
 .inline {
     display: inline-block;
     background-color:#b8a56e;
+    margin: 10px;
 }
+/* Общие стили кнопок */
 .button {
     margin: 0 5px;
     border-radius: 5px;
     height: 30px;
     width: 70px;
 }
+/* Блок с продуктами */
 .product {
-    /* border: 1px solid red; */
     width: 300px;
     height: 100px;
     box-sizing: border-box;
-
 }
+/* Название продукта */
 .product_name {
-    /* border: 1px solid rgb(150, 30, 206); */
     margin: 15px 0 15px 15px;
 }
+/* Кнопки в блоке */
 .product_button {
-    /* border: 1px solid green; */
     margin: 15px 0 15px 15px;
 }
+/* Счетчик каждого продукта */
 .cash {
     box-sizing: border-box;
     padding: 10px;
     border-radius: 5px;
+}
+/* Стили для не открытого продукта */
+.notOpen {
+    position: relative;
+}
+.notOpen::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.7);
+    z-index: 2;
+}
+/* Стили для кнопки "Купить" */
+.buyButton {
+    z-index: 999;
+    font-weight: bold;
+    border: 1px solid #fff;
+    text-align: center;
+    line-height: 30px;
+    color: #b8a56e;
+    background-color: rgb(88, 51, 37);
+    cursor: pointer;
+    transition: .3s;
+}
+.buyButton:hover {
+    background-color: #fff;
+    color: darkslateblue;
 }
