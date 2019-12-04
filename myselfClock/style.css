@@ -1,0 +1,94 @@
+html,
+body {
+    margin: 0;
+}
+
+.button {
+    padding: 10px;
+    background-color: black;
+    /* border: 1px double rgb(0, 255, 34); */
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+.clock {
+    text-align: center;
+    font-size: 120px;
+    /* border: 5px double rgb(3, 3, 61); */
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-shadow: 0 0 5px rgb(0, 255, 34);
+    transition: all 1s;
+}
+
+.create-timer {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    transition: all .5s;
+}
+
+.create-timer-button {
+    font-size: 20px;
+    text-shadow: 0 0 10px blanchedalmond;
+}
+
+.create-timer-button:hover {
+    text-shadow: 0 0 3px rgb(0, 255, 34);
+    box-shadow: 0 0px 30px rgb(21, 21, 176);
+}
+
+.create-button {
+    font-size: 20px;
+    color: blanchedalmond;
+    margin: 0 5px;
+}
+.create-button:hover {
+    text-shadow: 0 0 2px blanchedalmond;
+    box-shadow: 0 0px 30px rgb(21, 21, 176);
+}
+
+.timer-input {
+    display: none;
+}
+
+.timer-input input {
+    width: 100px;
+    height: 33px;
+    border: 1px double rgb(0, 255, 34);
+    border-radius: 5px;
+    background-color: black;
+    color: blanchedalmond;
+    font-size: 20px;
+    outline: none;
+    text-align: center;
+    padding: 5px;
+}
+.timer-input input:nth-child(1),
+.timer-input input:nth-child(2) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.timer-input input:nth-child(2),
+.timer-input input:nth-child(3) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.timer {
+    display: none;
+}
