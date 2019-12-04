@@ -25,10 +25,9 @@ let inputRub = document.getElementById('rub'),
 const startConverter = (elemRUB) => {
     elemRUB.addEventListener('input', () => {
         let data;
+        let request = new XMLHttpRequest();
         const promFunc = () => {
             return new Promise(function (resolve, reject) {
-                let request = new XMLHttpRequest();
-
                 request.open('GET', 'js/current.json');
                 request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 
@@ -45,7 +44,8 @@ const startConverter = (elemRUB) => {
         };
 
         promFunc(elemRUB)
-                .then(() =>  inputUsd.value = this.value / data.usd)
+                .then(() => data = JSON.parse(request.response))
+                .then(() =>  inputUsd.value = elemRUB.value / data.usd)
                 .catch(() => inputUsd.value = "Что-то пошло не так!");
     });
 };
