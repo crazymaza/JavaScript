@@ -90,4 +90,6 @@ body {
 
 .timer {
     display: none;
+    color: blanchedalmond;
+    font-size: 20px;
 }

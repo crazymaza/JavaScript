@@ -7,7 +7,14 @@ const clock = document.querySelector('.clock'),
     timerInputs = document.querySelector('.timer-input'),
     okButton = document.querySelector('.ok'),
     closeButton = document.querySelector('.close'),
-    timer = document.querySelector('.timer');
+    timer = document.querySelector('.timer'),
+    inpHours = document.querySelector('.inp-hours'),
+    inpMinutes = document.querySelector('.inp-minutes'),
+    inpSeconds = document.querySelector('.inp-seconds'),
+    timerHours = document.querySelector('.timer-hours'),
+    timerMinutes = document.querySelector('.timer-minutes'),
+    timerSeconds = document.querySelector('.timer-seconds');
+
 
 //Делаем тень для часов.
 //"Оживляем" время.
@@ -37,6 +44,26 @@ const timeRunner = () => {
 };
 setInterval(timeRunner, 1000);
 
+const timerValue = () => {
+    if(+inpHours.value && inpHours.value.trim() != '') {
+        timerHours.textContent = inpHours.value;
+    } else {
+        timerHours.textContent = '00';
+    }
+    if(+inpMinutes.value && inpMinutes.value.trim() != '') {
+        timerMinutes.textContent = inpMinutes.value;
+    } else {
+        timerMinutes.textContent = '00';
+    }
+    if(+inpSeconds.value && inpSeconds.value.trim() != '') {
+        timerSeconds.textContent =  inpSeconds.value;
+    } else {
+        timerSeconds.textContent = '00';
+    }
+    
+
+};
+
 //Добавляем обработчики событий.
 setButton.addEventListener('click', () => {
     setButton.style.display = 'none';
@@ -46,8 +73,10 @@ setButton.addEventListener('click', () => {
 okButton.addEventListener('click', () => {
     timerInputs.style.display = 'none';
     timer.style.display = 'block';
+    timerValue();
 });
 closeButton.addEventListener('click', () => {
     timerInputs.style.display = 'none';
     setButton.style.display = 'block';
 });
+
