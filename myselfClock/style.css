@@ -43,23 +43,22 @@ body {
 }
 
 .create-timer-button {
-    font-size: 20px;
-    text-shadow: 0 0 10px blanchedalmond;
+    font-size: 25px;
+    color: #067704;
+    text-shadow: 0 0 5px rgb(11, 138, 6);
 }
 
 .create-timer-button:hover {
-    text-shadow: 0 0 3px rgb(0, 255, 34);
-    box-shadow: 0 0px 30px rgb(21, 21, 176);
+    box-shadow: 0 0px 30px rgba(0, 255, 34, .3);
 }
 
 .create-button {
     font-size: 20px;
-    color: blanchedalmond;
+    color: #067704;
     margin: 0 5px;
 }
 .create-button:hover {
-    text-shadow: 0 0 2px blanchedalmond;
-    box-shadow: 0 0px 30px rgb(21, 21, 176);
+    box-shadow: 0 0px 30px rgba(0, 255, 34, .3);
 }
 
 .timer-input {

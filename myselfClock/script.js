@@ -27,7 +27,13 @@ const timeRunner = () => {
     if (s < 10) {
         seconds.textContent = "0" + s;
     }
-    clock.style.boxShadow = `0 0 ${s}px rgb(0, 255, 34)`;
+    // let a = 0;
+    // if(s % 10 == 0) {
+    //     clock.style.boxShadow = `0 0 40px rgba(0, 255, 34, .${a++})`;
+    // } else {
+    //     a = 0;
+    // }
+    clock.style.boxShadow = `0 0 ${s + 10}px rgba(0, 255, 34, .5)`;
 };
 setInterval(timeRunner, 1000);
 
