@@ -6,7 +6,6 @@ body {
 .button {
     padding: 10px;
     background-color: black;
-    /* border: 1px double rgb(0, 255, 34); */
     border: none;
     border-radius: 5px;
     outline: none;
@@ -25,14 +24,18 @@ body {
     box-sizing: border-box;
 }
 
-.clock {
+.clock, .weather {
     text-align: center;
     font-size: 120px;
-    /* border: 5px double rgb(3, 3, 61); */
     border-radius: 5px;
     padding: 10px 20px;
     text-shadow: 0 0 5px rgb(0, 255, 34);
     transition: all 1s;
+    cursor: pointer;
+}
+
+.clock {
+    z-index: 99;
 }
 
 .create-timer {
@@ -57,6 +60,7 @@ body {
     color: #067704;
     margin: 0 5px;
 }
+
 .create-button:hover {
     box-shadow: 0 0px 30px rgba(0, 255, 34, .3);
 }
@@ -77,11 +81,13 @@ body {
     text-align: center;
     padding: 5px;
 }
+
 .timer-input input:nth-child(1),
 .timer-input input:nth-child(2) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
 .timer-input input:nth-child(2),
 .timer-input input:nth-child(3) {
     border-top-left-radius: 0;
@@ -92,4 +98,39 @@ body {
     display: none;
     color: blanchedalmond;
     font-size: 20px;
+}
+
+.weather {
+    position: absolute;
+    max-width: 621px;
+    max-height: 164px;
+    padding: 10px 20px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1.5fr 0.5fr 0.5fr;
+    grid-template-areas: "city temp img" "city text text";
+    font-size: 40px;
+    box-shadow: rgba(0, 255, 34, 0.5) 0px 0px 47px;
+    opacity: 0;
+}
+
+.city {
+    grid-area: city;
+    text-transform: uppercase;
+    font-size: 60px;
+}
+
+.weather-img {
+    grid-area: img;
+    display: inline-block;
+}
+
+.temperature {
+    grid-area: temp;
+}
+
+.weather-text {
+    grid-area: text;
+    text-transform: uppercase;
+    font-size: 25px;
 }

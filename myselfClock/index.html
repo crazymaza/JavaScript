@@ -10,36 +10,41 @@
 </head>
 
 <body>
-    <main class="wrapper">
-        <div class="clock">
-            <span class="hours">00</span>
-            <span>:</span>
-            <span class="minutes">00</span>
-            <span>:</span>
-            <span class="seconds">00</span>
-        </div>
-        <div class="create-timer">
-            <button class="create-timer-button button">Установить таймер</button>
-            <div class="timer-input">
-                <input type="text" class="inp-hours" max=23 min=0  placeholder="Часы">
-                <input type="text" class="inp-minutes" max=59 min=0  placeholder="Минуты">
-                <input type="text" class="inp-seconds" max=59 min=0  placeholder="Секунды">
-                <button class="ok button create-button">Установить</button>
-                <button class="close button create-button">Отмена</button>
+<main class="wrapper">
+    <div class="clock">
+        <span class="hours">00</span>
+        <span>:</span>
+        <span class="minutes">00</span>
+        <span>:</span>
+        <span class="seconds">00</span>
+    </div>
+    <div class="weather">
+        <span class="city"></span>
+        <img src="" alt="" class="weather-img">
+        <span class="temperature"></span>
+        <span class="weather-text"></span>
+    </div>
+    <div class="create-timer">
+        <button class="create-timer-button button">Установить таймер</button>
+        <div class="timer-input">
+            <input type="text" class="inp-hours" max=23 min=0 placeholder="Часы">
+            <input type="text" class="inp-minutes" max=59 min=0 placeholder="Минуты">
+            <input type="text" class="inp-seconds" max=59 min=0 placeholder="Секунды">
+            <button class="ok button create-button">Установить</button>
+            <button class="close button create-button">Отмена</button>
 
-            </div>
-            <div class="timer">
-                <span>Таймер сработает через</span>
-                <span class="timer-hours">00</span>
-                <span>:</span>
-                <span class="timer-minutes">00</span>
-                <span>:</span>
-                <span class="timer-seconds">00</span>
-            </div>
         </div>
-    </main>
-    <script  async src="script.js"></script>
-    <!-- <script src="canvas.js"></script> -->
+        <div class="timer">
+            <span>Таймер сработает через</span>
+            <span class="timer-hours">00</span>
+            <span>:</span>
+            <span class="timer-minutes">00</span>
+            <span>:</span>
+            <span class="timer-seconds">00</span>
+        </div>
+    </div>
+</main>
+<script async src="scriptClock.js"></script>
+<script async src="scriptWeather.js"></script>
 </body>
-
 </html>
