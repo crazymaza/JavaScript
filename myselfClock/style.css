@@ -102,8 +102,8 @@ body {
 
 .weather {
     position: absolute;
-    max-width: 621px;
-    max-height: 164px;
+    max-width: 660px;
+    max-height: 175px;
     padding: 10px 20px;
     display: grid;
     align-items: center;
@@ -118,6 +118,7 @@ body {
     grid-area: city;
     text-transform: uppercase;
     font-size: 60px;
+    padding-right: 10px;
 }
 
 .weather-img {
