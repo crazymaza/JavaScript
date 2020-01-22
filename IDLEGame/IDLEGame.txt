@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>IDLE Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section>
+    <article class="mineP">
+        <img src="img/copperMine.png" alt="Медная шахта" width="103" height="89">
+        <p>Накоплено:<br> <span class="money">0</span></p>
+        <span class="allMine" aria-label="Уровень медной шахты">1</span>
+        <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">10</b> монет</p>
+        <button class="levelUp">Улучшить</button>
+        <p class="speedPerSecond"><span>1</span>/сек</p>
+    </article>
+    <article class="mineP disabled">
+        <img src="img/silverMine.png" alt="Серебрянная шахта" width="103" height="89">
+        <p>Накоплено:<br> <span class="money">0</span></p>
+        <span class="allMine" aria-label="Уровень медной шахты">1</span>
+        <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">10</b> монет</p>
+        <button class="levelUp" tabindex="-1">Улучшить</button>
+        <p class="speedPerSecond"><span>1</span>/сек</p>
+    </article>
+    <article class="mineP disabled">
+        <img src="img/goldMine.png" alt="Золотая шахта" width="103" height="89">
+        <p>Накоплено:<br> <span class="money">0</span></p>
+        <span class="allMine" aria-label="Уровень медной шахты">1</span>
+        <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">10</b> монет</p>
+        <button class="levelUp" tabindex="-1">Улучшить</button>
+        <p class="speedPerSecond"><span>1</span>/сек</p>
+    </article>
+</section>
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+body {
+    font-family: sans-serif;
+}
+
+section {
+    display: flex;
+}
+
+.mineP {
+    position: relative;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.levelUp {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    background-color: transparent;
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding: 5px 10px;
+    outline: none;
+}
+
+.levelUp:hover,
+.levelUp:focus {
+    background-color: #a29f9f;
+    color: whitesmoke;
+}
+
+.levelUp:active {
+    background-color: #211b1b;
+}
+
+.mineP p {
+    text-align: center;
+}
+
+.allMine {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+
+    width: 80px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0 5px;
+}
+
+.disabled::before {
+    content: "Для открытия нужен 10 лвл предыдущей шахты";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 103%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 70%;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+
+.speedPerSecond {
+    position: absolute;
+    top: 30px;
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    //Объявляем переменные
+    let moneyFromPage = document.querySelector('.money');
+    let lvlBtn = document.querySelector('.levelUp');
+    let mineLvlArray = document.querySelectorAll('.allMine');
+    let needForLvlArray = document.querySelectorAll('.copperLvlNeed');
+    let speedPerSecondArray= document.querySelectorAll('.speedPerSecond span');
+    let lvlBtnArray = document.querySelectorAll('.levelUp');
+    let minePArray = document.querySelectorAll('.mineP');
+    let moneyArray = document.querySelectorAll('.money');
+
+    //Необходимые значения для "развития".
+    let variables = {
+        money: 0,
+        plusCount: 1,
+        needToLvl: 10,
+        silverMoney: 0,
+        silverPlusCount: 1,
+        goldMoney: 0,
+        goldPlusCount: 1,
+    };
+
+    //Делаем интервал изменения значений.
+    setInterval(addMoney, 10); //1000
+
+    //Функция в которой делаем увеличение денег на странице.
+    function addMoney() {
+        variables.money += variables.plusCount;
+        moneyArray[0].textContent =  variables.money;
+        if(!(minePArray[1].classList.contains('disabled'))){
+            variables.silverMoney += variables.silverPlusCount;
+            moneyArray[1].textContent =  variables.silverMoney;
+        }
+        if(!(minePArray[2].classList.contains('disabled'))){
+                    variables.goldMoney += variables.goldPlusCount;
+                    moneyArray[2].textContent =  variables.goldMoney;
+                }
+    }
+
+    /*  Добавляем обработчик на первую кнопку.
+        Если у нас набралась нужная сумма,
+        то шахта будет улучшена на 1 уровень.
+        Если набрался нужный уровень шахты,
+        то будет доступна возможность
+        открыть серебрянную шахту.
+    */
+    lvlBtnArray[0].addEventListener('click', function() {
+        let lvl = +mineLvlArray[0].textContent;
+        if(+moneyArray[0].textContent >= +needForLvlArray[0].textContent) {
+            mineLvlArray[0].textContent = ++lvl;
+            moneyArray[0].textContent -= +needForLvlArray[0].textContent;
+            variables.plusCount += +mineLvlArray[0].textContent;
+            needForLvlArray[0].textContent *= 2; //lvl
+        }
+        speedPerSecondArray[0].textContent = variables.plusCount;
+        openSilverMine();
+    });
+
+    //Silver
+    let fff = elementChanged(minePArray[1], lvlBtnArray[1]);
+    function openSilverMine() {
+        if(mineLvlArray[0].textContent === '10') {
+            lvlBtnArray[1].style.zIndex = 10;
+            lvlBtnArray[1].textContent = 'Открыть';
+            lvlBtnArray[1].style.color = 'white';
+            lvlBtnArray[1].addEventListener('click', fff, true);
+        }
+    }
+
+    function elementChanged(block, button) {
+        block.classList.remove('disabled');
+        button.removeAttribute('tabindex');
+        button.textContent = 'Улучшить';
+        button.style.color = 'black';
+        button.style.zIndex = 0;
+//        button.removeEventListener('click', elementChanged);
+    }
+
+    lvlBtnArray[1].addEventListener('click', function() {
+        let lvl = +mineLvlArray[1].textContent;
+        if(+moneyArray[1].textContent >= +needForLvlArray[1].textContent) {
+            mineLvlArray[1].textContent = ++lvl;
+            moneyArray[1].textContent -= needForLvlArray[1].textContent;
+            variables.silverPlusCount += +mineLvlArray[1].textContent;
+            needForLvlArray[1].textContent *= 2; //lvl
+        }
+        speedPerSecondArray[1].textContent = variables.silverPlusCount;
+        openGoldMine();
+    });
+
+    //Gold
+    function openGoldMine() {
+        if(mineLvlArray[1].textContent === '10') {
+            lvlBtnArray[2].style.zIndex = 10;
+            lvlBtnArray[2].textContent = 'Открыть';
+            lvlBtnArray[2].style.color = 'white';
+            lvlBtnArray[2].addEventListener('click', goldElChanged);
+        }
+    }
+
+    function goldElChanged() {
+        minePArray[2].classList.remove('disabled');
+        lvlBtnArray[2].removeAttribute('tabindex');
+        lvlBtnArray[2].textContent = 'Улучшить';
+        lvlBtnArray[2].style.color = 'black';
+        lvlBtnArray[2].style.zIndex = 0;
+        lvlBtnArray[2].removeEventListener('click', goldElChanged);
+    }
+
+    lvlBtnArray[2].addEventListener('click', function() {
+        let lvl = +mineLvlArray[2].textContent;
+        if(+moneyArray[2].textContent >= +needForLvlArray[2].textContent) {
+            mineLvlArray[2].textContent = ++lvl;
+            moneyArray[2].textContent -= needForLvlArray[2].textContent;
+            variables.goldPlusCount += +mineLvlArray[2].textContent;
+            needForLvlArray[2].textContent *= 2; //lvl
+        }
+        speedPerSecondArray[2].textContent = variables.goldPlusCount;
+    });
+});

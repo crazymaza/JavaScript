@@ -1,0 +1,80 @@
+body {
+    font-family: sans-serif;
+}
+
+section {
+    display: flex;
+}
+
+.mineP {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.levelUp {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    background-color: transparent;
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding: 5px 10px;
+    outline: none;
+}
+
+.levelUp:hover,
+.levelUp:focus {
+    background-color: #a29f9f;
+    color: whitesmoke;
+}
+
+.levelUp:active {
+    background-color: #211b1b;
+}
+
+.mineP p {
+    text-align: center;
+}
+
+.allMine {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+
+    width: 80px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0 5px;
+}
+
+.disabled::before {
+    content: "Для открытия нужен 10 лвл предыдущей шахты";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 103%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 70%;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+
+.speedPerSecond {
+    position: absolute;
+    top: 30px;
+}
+
