@@ -4,20 +4,24 @@ body {
 
 section {
     display: flex;
+    flex-direction: column;
 }
 
 .mineP {
     display: flex;
-    justify-content: space-around;
     position: relative;
-    width: 150px;
+    width: 500px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     margin-right: 10px;
+    margin-bottom: 20px;
+    background-color: #eeeeee;
+    padding: 10px;
 }
 
-.levelUp {
+.progressButton .levelUp {
+    display: block;
+    width: 120px;
     font-size: 18px;
     font-weight: 700;
     text-transform: uppercase;
@@ -27,15 +31,17 @@ section {
     border-radius: 5px;
     padding: 5px 10px;
     outline: none;
+
+    margin-left: 10px;
 }
 
-.levelUp:hover,
-.levelUp:focus {
+.progressButton .levelUp:hover,
+.progressButton .levelUp:focus {
     background-color: #a29f9f;
-    color: whitesmoke;
+    color: rgb(69, 218, 64);
 }
 
-.levelUp:active {
+.progressButton .levelUp:active {
     background-color: #211b1b;
 }
 
@@ -43,16 +49,27 @@ section {
     text-align: center;
 }
 
+.mineP img {
+    max-width: 103px;
+    max-height: 89px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
 .allMine {
     font-size: 20px;
     font-weight: 700;
     text-align: center;
 
-    width: 80px;
+    width: 103px;
     border: 2px solid gray;
-    border-radius: 5px;
+    border-top: 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+
     box-sizing: border-box;
     padding: 0 5px;
+    
 }
 
 .disabled::before {
@@ -73,8 +90,48 @@ section {
 
 }
 
-.speedPerSecond {
-    position: absolute;
-    top: 30px;
+.progressButton {
+    position: relative;
 }
 
+progress {
+    background-color:  rgba(0, 128, 128, 0.664);
+    border: 0;
+    width: 200px;
+    height: 35px;
+    border-radius: 9px;
+}
+
+progress::-webkit-progress-bar {
+    background-color: rgba(0, 128, 128, 0.664);
+    border: 0;
+    width: 200px;
+    height: 35px;
+
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+progress::-webkit-progress-value {
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+    background-color:rgb(255, 137, 2);
+}
+
+.imgLvl {
+    display: flex;
+    flex-direction: column;
+}
+
+.progressButton {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.speedPerSecond {
+    position: absolute;
+    top: -7px;
+    left: 140px;
+    font-weight: 700;
+}

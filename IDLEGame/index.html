@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>IDLE Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<section>
-    <article class="mineP">
-        <img src="img/copperMine.png" alt="Медная шахта" width="103" height="89">
-        <p>Накоплено:<br> <span class="money">0</span></p>
-        <span class="allMine" aria-label="Уровень медной шахты">1</span>
-        <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">10</b> бронзы</p>
-        <button class="levelUp">Улучшить</button>
-        <p class="speedPerSecond"><span>1</span>/сек</p>
-    </article>
-    <article class="mineP disabled">
-        <img src="img/silverMine.png" alt="Серебрянная шахта" width="103" height="89">
-        <p>Накоплено:<br> <span class="money">0</span></p>
-        <span class="allMine" aria-label="Уровень медной шахты">1</span>
-        <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">100</b> серебра<br>
-        <b class="copperLvlNeed">1000</b> бронзы</p>
-        <button class="levelUp" tabindex="-1">Улучшить</button>
-        <p class="speedPerSecond"><span>1</span>/сек</p>
-    </article>
-    <article class="mineP disabled">
-        <img src="img/goldMine.png" alt="Золотая шахта" width="103" height="89">
-        <p>Накоплено:<br> <span class="money">0</span></p>
-        <span class="allMine" aria-label="Уровень медной шахты">1</span>
-        <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">10</b> золота<br>
-        <b class="copperLvlNeed">2000</b> серебра<br>
-        <b class="copperLvlNeed">10000</b> бронзы</p>
-        <button class="levelUp" tabindex="-1">Улучшить</button>
-        <p class="speedPerSecond"><span>1</span>/сек</p>
-    </article>
-</section>
+    <section>
+        <article class="mineP">
+            <div class="imgLvl">
+                <div class="imgLvl"></div>
+                <img src="img/Copper Mine.png" alt="Медная шахта" width="103" height="89">
+                <span class="allMine" aria-label="Уровень медной шахты">1</span>
+            </div>
+            <div class="progressButton">
+                <progress value="0" max="10"></progress>
+                <button class="levelUp">Улучшить</button>
+                <p class="speedPerSecond"><span>1</span>/сек</p>
+            </div>
+            <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">10</b> бронзы</p>
+        </article>
+        <article class="mineP disabled">
+            <div class="imgLvl">
+                <img src="img/Stone mine.png" alt="Серебрянная шахта" width="103" height="89">
+                <span class="allMine" aria-label="Уровень серебрянной шахты">1</span>
+            </div>
+            <div class="progressButton">
+                <progress class="silverProgress" value="0" max="10"></progress>
+                <button class="levelUp" tabinclass="silverProgress"dex="-1">Улучшить</button>
+                <p class="speedPerSecond"><span>1</span>/сек</p>
+            </div>
+            <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">100</b> серебра<br>
+                <b class="copperLvlNeed">1000</b> бронзы</p>
+        </article>
+        <article class="mineP disabled">
+            <div class="imgLvl">
+                <img src="img/Marble Mine.png" alt="Золотая шахта" width="103" height="89">
+                <span class="allMine" aria-label="Уровень золотой шахты">1</span>
+            </div>
+            <div class="progressButton">
+                <progress class="goldProgress" value="0" max="10"></progress>
+                <button class="levelUp" tabindex="-1">Улучшить</button>
+                <p class="speedPerSecond"><span>1</span>/сек</p>
+            </div>
+            <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">10</b> золота<br>
+                <b class="copperLvlNeed">2000</b> серебра<br>
+                <b class="copperLvlNeed">10000</b> бронзы</p>
+        </article>
+    </section>
 
 
 
 
     <script src="script.js"></script>
 </body>
+
 </html>

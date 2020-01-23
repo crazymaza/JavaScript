@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let lvlBtnArray = document.querySelectorAll('.levelUp');
     let minePArray = document.querySelectorAll('.mineP');
     let moneyArray = document.querySelectorAll('.money');
+    let progressBarArray = document.querySelectorAll('progress');
 
     //Необходимые значения для "развития".
     let variables = {
@@ -19,20 +20,26 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     //Делаем интервал изменения значений.
-    setInterval(addMoney, 1000); //1000
+    setInterval(addMoney, 10); //1000
 
     //Функция в которой делаем увеличение денег на странице.
     function addMoney() {
         variables.money += variables.plusCount;
-        moneyArray[0].textContent = variables.money;
+        progressBarArray[0].setAttribute('value', variables.money);
+        progressBarArray[0].setAttribute('max', needForLvlArray[0].textContent);
         if (!(minePArray[1].classList.contains('disabled'))) {
             variables.silverMoney += variables.silverPlusCount;
             moneyArray[1].textContent = variables.silverMoney;
+            progressBarArray[1].setAttribute('value', moneyArray[1].textContent);
+            progressBarArray[1].setAttribute('max', needForLvlArray[1].textContent);
         }
         if (!(minePArray[2].classList.contains('disabled'))) {
             variables.goldMoney += variables.goldPlusCount;
             moneyArray[2].textContent = variables.goldMoney;
+            progressBarArray[2].setAttribute('value', moneyArray[2].textContent);
+            progressBarArray[2].setAttribute('max', needForLvlArray[0].textContent);
         }
+        buttonActivated();
     }
 
     /*  Добавляем обработчик на первую кнопку.
@@ -44,11 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
     */
     lvlBtnArray[0].addEventListener('click', function () {
         let lvl = +mineLvlArray[0].textContent;
-        if (+moneyArray[0].textContent >= +needForLvlArray[0].textContent) {
+        if (+progressBarArray[0].getAttribute('value') >= +needForLvlArray[0].textContent) {
             mineLvlArray[0].textContent = ++lvl;
             variables.money -= +needForLvlArray[0].textContent;
             variables.plusCount += +mineLvlArray[0].textContent;
-            needForLvlArray[0].textContent *= lvl; //lvl
+            needForLvlArray[0].textContent *= 3; //lvl
         }
         speedPerSecondArray[0].textContent = variables.plusCount;
         openSilverMine();
@@ -113,4 +120,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         speedPerSecondArray[2].textContent = variables.goldPlusCount;
     });
+
+    //Функция активации кнопки.
+    function buttonActivated() {
+        if (lvlBtnArray[0].hasAttribute('disabled') &&
+            +progressBarArray[0].getAttribute('value') >=
+            +needForLvlArray[0].textContent) {
+            lvlBtnArray[0].removeAttribute('disabled');
+            lvlBtnArray[0].style.backgroundColor = 'green';
+        } else if (!(lvlBtnArray[0].hasAttribute('disabled')) &&
+            +progressBarArray[0].getAttribute('value') <
+            +needForLvlArray[0].textContent) {
+            lvlBtnArray[0].setAttribute('disabled', true);
+            lvlBtnArray[0].style.backgroundColor = 'transparent';
+        }
+    }
 });
