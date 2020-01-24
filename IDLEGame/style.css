@@ -73,20 +73,20 @@ section {
 }
 
 .disabled::before {
-    content: "Для открытия нужен 10 лвл предыдущей шахты";
+    content: "Для открытия нужен 10 уровень предыдущей шахты";
     position: absolute;
     top: 0;
     left: 0;
-    width: 150px;
+    width: 529px;
     height: 103%;
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 5px;
+    font-weight: 700;
     color: white;
     text-align: center;
     box-sizing: border-box;
-    padding-top: 70%;
-    padding-left: 5px;
-    padding-right: 5px;
+    line-height: 7;
+    z-index: 3;
 
 }
 
@@ -117,6 +117,14 @@ progress::-webkit-progress-value {
     background-color:rgb(255, 137, 2);
 }
 
+.silverProgress::-webkit-progress-value {
+    background-color:rgb(202, 186, 168);
+}
+
+.goldProgress::-webkit-progress-value {
+    background-color:rgb(243, 200, 10);
+}
+
 .imgLvl {
     display: flex;
     flex-direction: column;
@@ -129,9 +137,12 @@ progress::-webkit-progress-value {
     justify-content: space-between;
 }
 
-.speedPerSecond {
+.moneyView {
     position: absolute;
     top: -7px;
-    left: 140px;
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
     font-weight: 700;
 }
+

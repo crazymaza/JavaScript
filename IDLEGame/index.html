@@ -18,7 +18,11 @@
             <div class="progressButton">
                 <progress value="0" max="10"></progress>
                 <button class="levelUp">Улучшить</button>
-                <p class="speedPerSecond"><span>1</span>/сек</p>
+                <div class="moneyView">
+                    <p class="currentMoney"></p>
+                    <p class="speedPerSecond"><span>1</span>/сек</p>
+                </div>
+
             </div>
             <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">10</b> бронзы</p>
         </article>
@@ -29,8 +33,11 @@
             </div>
             <div class="progressButton">
                 <progress class="silverProgress" value="0" max="10"></progress>
-                <button class="levelUp" tabinclass="silverProgress"dex="-1">Улучшить</button>
-                <p class="speedPerSecond"><span>1</span>/сек</p>
+                <button class="levelUp" tabindex="-1" disabled>Улучшить</button>
+                <div class="moneyView">
+                    <p class="currentMoney"></p>
+                    <p class="speedPerSecond"><span>1</span>/сек</p>
+                </div>
             </div>
             <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">100</b> серебра<br>
                 <b class="copperLvlNeed">1000</b> бронзы</p>
@@ -42,8 +49,11 @@
             </div>
             <div class="progressButton">
                 <progress class="goldProgress" value="0" max="10"></progress>
-                <button class="levelUp" tabindex="-1">Улучшить</button>
-                <p class="speedPerSecond"><span>1</span>/сек</p>
+                <button class="levelUp" tabindex="-1" disabled>Улучшить</button>
+                <div class="moneyView">
+                    <p class="currentMoney"></p>
+                    <p class="speedPerSecond"><span>1</span>/сек</p>
+                </div>
             </div>
             <p>До следующего уровня нужно:<br> <b class="copperLvlNeed">10</b> золота<br>
                 <b class="copperLvlNeed">2000</b> серебра<br>
