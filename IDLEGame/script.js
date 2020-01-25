@@ -131,6 +131,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //Функция активации кнопки.
+    // lvl - кнопка повышения уровня.
+    // progress - значение атрибута value у прогрессбара.
+    // need - значение необходимых ресурсов.
+    // progress и need  меняем на функцию checkResources или наоборот.
     function buttonActivated(lvl, progress, need) {
         if (lvl.hasAttribute('disabled') &&
             +progress.getAttribute('value') >=
@@ -145,5 +149,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    //Проверяет, что необходимых ресурсов хватает для улучшения.
+    function sumNeededResourses(...args) {
+      let sumNeed = 0;
+      for(const i of args) {
+        result += i;
+      }
+      return result;
+    }
     
+    //Проверяет, что количество нужных ресурсов совпадает 
+    // с количесвом текущих ресурсов.
+    function checkResources(neededRes, ...args) {
+      let sumCurrent = 0;
+      for(const i of args) {
+        sumCurrent += i;
+      }
+      if(sunCurrent >= neededRes) {
+        buttonActivated();
+      }
+    }
 });
