@@ -29,13 +29,19 @@ document.addEventListener("DOMContentLoaded", () => {
         progressBarArray[0].setAttribute('value', variables.money);
         progressBarArray[0].setAttribute('max', needForLvlArray[0].textContent);
         currentMoney[0].textContent = variables.money;
-        buttonActivated(lvlBtnArray[0], progressBarArray[0], needForLvlArray[0]);
+        buttonActivated(lvlBtnArray[0],
+            checkResources(sumNeededResourses(needForLvlArray[0]),
+            progressBarArray[0].getAttribute('value')));
         if (!(minePArray[1].classList.contains('disabled'))) {
             variables.silverMoney += variables.silverPlusCount;
             progressBarArray[1].setAttribute('value', variables.silverMoney);
             progressBarArray[1].setAttribute('max', needForLvlArray[1].textContent);
             currentMoney[1].textContent = variables.silverMoney;
-            buttonActivated(lvlBtnArray[1], progressBarArray[1], needForLvlArray[1]);
+            buttonActivated(lvlBtnArray[1],
+                checkResources(sumNeededResourses(needForLvlArray[1], needForLvlArray[2]),
+                progressBarArray[0].getAttribute('value'), 
+                progressBarArray[1].getAttribute('value')));
+            // buttonActivated(lvlBtnArray[1], progressBarArray[1], needForLvlArray[1]);
         }
         if (!(minePArray[2].classList.contains('disabled'))) {
             variables.goldMoney += variables.goldPlusCount;
@@ -44,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
             currentMoney[2].textContent = variables.goldMoney;
             buttonActivated(lvlBtnArray[2], progressBarArray[2], needForLvlArray[3]);
         }
-        
+
     }
 
     /*  Добавляем обработчик на первую кнопку.
@@ -68,14 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Silver
     function openSilverMine() {
-        if (mineLvlArray[0].textContent === '10') {
-            lvlBtnArray[1].style.zIndex = 10;
-            lvlBtnArray[1].textContent = 'Открыть';
-            lvlBtnArray[1].style.color = 'white';
-            lvlBtnArray[1].removeAttribute('disabled');
-            lvlBtnArray[1].addEventListener('click',
-                elementChanged.bind(this, minePArray[1], lvlBtnArray[1]), true);
-        }
+        this.addEventListener('click',
+            createOpenBtn.bind(this, mineLvlArray[0], lvlBtnArray[1], minePArray[1]), {
+                once: true
+            });
     }
 
     lvlBtnArray[1].addEventListener('click', function () {
@@ -95,21 +97,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Gold
     function openGoldMine() {
-        if (mineLvlArray[1].textContent === '10') {
-            lvlBtnArray[2].style.zIndex = 10;
-            lvlBtnArray[2].textContent = 'Открыть';
-            lvlBtnArray[2].style.color = 'white';
-            lvlBtnArray[2].removeAttribute('disabled');
-            lvlBtnArray[2].addEventListener('click',
-                elementChanged.bind(this, minePArray[2], lvlBtnArray[2]), true);
-        }
+        this.addEventListener('click',
+            createOpenBtn.bind(this, mineLvlArray[1], lvlBtnArray[2], minePArray[2]), {
+                once: true
+            });
     }
 
     lvlBtnArray[2].addEventListener('click', function () {
         let lvl = +mineLvlArray[2].textContent;
         if (+progressBarArray[2].getAttribute('value') >= +needForLvlArray[3].textContent &&
-            +progressBarArray[1].getAttribute('value') >= +needForLvlArray[5].textContent &&
-            +progressBarArray[0].getAttribute('value') >= +needForLvlArray[4].textContent) {
+            +progressBarArray[1].getAttribute('value') >= +needForLvlArray[4].textContent &&
+            +progressBarArray[0].getAttribute('value') >= +needForLvlArray[5].textContent) {
             mineLvlArray[2].textContent = ++lvl;
             variables.goldMoney -= needForLvlArray[3].textContent;
             variables.silverMoney -= needForLvlArray[4].textContent;
@@ -122,7 +120,30 @@ document.addEventListener("DOMContentLoaded", () => {
         speedPerSecondArray[2].textContent = variables.goldPlusCount;
     });
 
-    function elementChanged(block, button) {
+    // ========== Общие функции ============
+
+    //Функция, которая меняет значение кнопки, 
+    //чтобы она могла открыть шахту.
+    // previosMine - шахта, предыдущая открывающейся. mineLvlArray
+    // currentBtn - кнопка над которой производим действие. lvlBtnArray
+    // currentMine - шахта над которой производим действие. minePArray 
+    function createOpenBtn(previosMine, currentBtn, currentMine) {
+        if (+previosMine.textContent >= 10 &&
+            currentMine.classList.contains('disabled')) {
+            currentBtn.style.zIndex = 10;
+            currentBtn.textContent = 'Открыть';
+            currentBtn.style.color = 'white';
+            currentBtn.removeAttribute('disabled');
+            currentBtn.addEventListener('click',
+                elementUndisabled.bind(this, currentMine, currentBtn), {
+                    once: true
+                });
+        }
+    }
+
+    //Функция, которая изменяет кнопку, когда открывается новая шахта.
+    //Также снимает класс disabled со всего блока.
+    function elementUndisabled(block, button) {
         block.classList.remove('disabled');
         button.removeAttribute('tabindex');
         button.textContent = 'Улучшить';
@@ -135,38 +156,37 @@ document.addEventListener("DOMContentLoaded", () => {
     // progress - значение атрибута value у прогрессбара.
     // need - значение необходимых ресурсов.
     // progress и need  меняем на функцию checkResources или наоборот.
-    function buttonActivated(lvl, progress, need) {
-        if (lvl.hasAttribute('disabled') &&
-            +progress.getAttribute('value') >=
-            +need.textContent) {
-                lvl.removeAttribute('disabled');
-                lvl.style.backgroundColor = 'green';
-        } else if (!(lvl.hasAttribute('disabled')) &&
-            +progress.getAttribute('value') <
-            +need.textContent) {
-                lvl.setAttribute('disabled', true);
-                lvl.style.backgroundColor = 'transparent';
+    function buttonActivated(lvl, need) {
+        if (lvl.hasAttribute('disabled') && need) {
+            lvl.removeAttribute('disabled');
+            lvl.style.backgroundColor = 'green';
+        } else if (!(lvl.hasAttribute('disabled')) && !need) {
+            lvl.setAttribute('disabled', true);
+            lvl.style.backgroundColor = 'transparent';
         }
     }
 
     //Проверяет, что необходимых ресурсов хватает для улучшения.
+    //Параметрами передаются данные нужных ресурсов со страницы. 
     function sumNeededResourses(...args) {
-      let sumNeed = 0;
-      for(const i of args) {
-        result += i;
-      }
-      return result;
+        let sumNeed = 0;
+        for (const i of args) {
+            sumNeed += +i.textContent;
+        }
+        return sumNeed;
     }
-    
+
     //Проверяет, что количество нужных ресурсов совпадает 
     // с количесвом текущих ресурсов.
-    function checkResources(neededRes, ...args) {
-      let sumCurrent = 0;
-      for(const i of args) {
-        sumCurrent += i;
-      }
-      if(sunCurrent >= neededRes) {
-        buttonActivated();
-      }
+    //sumNeededResourses - функция, для подсчёта нужных ресурсов.
+    function checkResources(sumNeededResourses, ...args) {
+        let sumCurrent = 0;
+        for (const i of args) {
+            sumCurrent += +i;
+        }
+        if (sumCurrent >= sumNeededResourses) {
+            return true;
+        }
+        return false;
     }
 });
